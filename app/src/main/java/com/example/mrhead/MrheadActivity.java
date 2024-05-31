@@ -2,8 +2,10 @@ package com.example.mrhead;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,8 +16,8 @@ public class MrheadActivity extends AppCompatActivity {
 
     private CheckBox cbHair, cbEyebrow, cbMoustache, cbBeard;
     private ImageView imageHair, imageEyebrow, imageEye, imageBeard, imageMoustache;
-
     private TextView email;
+    private Button btnCall;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -39,6 +41,17 @@ public class MrheadActivity extends AppCompatActivity {
         email = findViewById(R.id.textView);
         Intent intent = getIntent();
         email.setText("Welcome, "+intent.getStringExtra("email_key"));
+
+        // Initialize Button
+        btnCall = findViewById(R.id.btn_call);
+        btnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:+6285156760830"));
+                startActivity(callIntent);
+            }
+        });
 
                 // Set up CheckBox listeners
         cbHair.setOnCheckedChangeListener((buttonView, isChecked) -> {
