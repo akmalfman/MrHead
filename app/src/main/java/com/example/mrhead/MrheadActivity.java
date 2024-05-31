@@ -16,7 +16,7 @@ public class MrheadActivity extends AppCompatActivity {
 
     private CheckBox cbHair, cbEyebrow, cbMoustache, cbBeard;
     private ImageView imageHair, imageEyebrow, imageEye, imageBeard, imageMoustache;
-    private TextView email;
+    private TextView email, pass;
     private Button btnCall;
 
     @SuppressLint("SetTextI18n")
@@ -39,17 +39,21 @@ public class MrheadActivity extends AppCompatActivity {
 
         // Initialize TextView
         email = findViewById(R.id.textView);
+        pass = findViewById(R.id.textView2);
         Intent intent = getIntent();
-        email.setText("Welcome, "+intent.getStringExtra("email_key"));
+        email.setText(intent.getStringExtra("email_key"));
+        pass.setText(intent.getStringExtra("pass_key"));
 
         // Initialize Button
         btnCall = findViewById(R.id.btn_call);
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:+6285156760830"));
-                startActivity(callIntent);
+                Intent intent = new Intent(MrheadActivity.this, ContactUsActivity.class);
+                startActivity(intent);
+//                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+//                callIntent.setData(Uri.parse("tel:+6285156760830"));
+//                startActivity(callIntent);
             }
         });
 
