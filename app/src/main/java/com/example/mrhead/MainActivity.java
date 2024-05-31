@@ -1,64 +1,45 @@
 package com.example.mrhead;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CheckBox cbHair, cbEyebrow, cbMoustache, cbBeard;
-    private ImageView imageHair, imageEyebrow, imageEye, imageBeard, imageMoustache;
+    private EditText edEmail;
+    private EditText editText;
+    private Button btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize CheckBoxes
-        cbHair = findViewById(R.id.cbHair);
-        cbEyebrow = findViewById(R.id.cbEyebrow);
-        cbMoustache = findViewById(R.id.cbMoustache);
-        cbBeard = findViewById(R.id.cbBeard);
+        edEmail = findViewById(R.id.edEmail);
+        editText = findViewById(R.id.editText);
+        btnLogin = findViewById(R.id.btnLogin);
 
-        // Initialize ImageViews
-        imageHair = findViewById(R.id.imageHair);
-        imageEyebrow = findViewById(R.id.imageEyebrow);
-        imageMoustache = findViewById(R.id.imageMoustache);
-        imageBeard = findViewById(R.id.imageBeard);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = edEmail.getText().toString().trim();
+                String password = editText.getText().toString().trim();
 
-        // Set up CheckBox listeners
-        cbHair.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                imageHair.setVisibility(View.VISIBLE);
-            } else {
-                imageHair.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        cbEyebrow.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                imageEyebrow.setVisibility(View.VISIBLE);
-            } else {
-                imageEyebrow.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        cbMoustache.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                imageMoustache.setVisibility(View.VISIBLE);
-            } else {
-                imageMoustache.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        cbBeard.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                imageBeard.setVisibility(View.VISIBLE);
-            } else {
-                imageBeard.setVisibility(View.INVISIBLE);
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Email and Password cannot be empty", Toast.LENGTH_SHORT).show();
+                } else if (email.equals("akmalfsalman2@gmail.com") && password.equals("21552011233")) {
+                    Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, MrheadActivity.class);
+                    intent.putExtra("email_key", email);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
